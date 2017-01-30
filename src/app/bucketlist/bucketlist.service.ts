@@ -11,10 +11,10 @@ export class BucketlistService {
     constructor(private http:Http) {
 
     }
-    private _bucketlisturl = ''
+    private _bucketlisturl = 'http://127.0.0.1:5000'
 
     getBuckelist(){
-        return this.http.get(this._bucketlisturl)
+        return this.http.get('${this._bucketlisturl}/buckelists')
                         .map(res => <Bucketlist[]> res.json())
                         .catch(this.handleError);
     }
