@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { RegisterService } from './register.service'
 
 @Component({
-    selector: 'register-user',
-    templateUrl: 'app/auth/register/register.component.html'
+    moduleId: module.id,
+    templateUrl: 'register.component.html'
 })
 
-export class UserRegistrationComponent{
-    title: 'Register now!'
+export class RegisterComponent{
+    model: any = {};
+    loading = false;
+
 }

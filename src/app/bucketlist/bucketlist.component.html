@@ -1,18 +1,1 @@
 <h1> I love the progress </h1>
-
-<section>
-    <section *ngIf="isLoading && !errorMessage">
-    Loading our hyperdrives!!! Retrieving data...
-    </section>
-      <ul>
-        <!-- this is the new syntax for ng-repeat -->
-        <li *ngFor="let bucketlist of bucketlists">
-            <a href="#" [routerLink]="['/bucketlist']">
-          {{bucketlist.title}}
-          </a>
-        </li>
-      </ul>
-      <section *ngIf="errorMessage">
-        {{errorMessage}}
-      </section>
-  </section>
