@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './auth/register/register.component';
 import { BucketlistComponent } from './bucketlist/bucketlist.component';
 import { AppComponent } from './app.component';
+import { RegisterService } from './auth/register/register.service'
 
 const appRoutes = [
    { path: 'auth/register', component: RegisterComponent },
@@ -24,7 +25,7 @@ const appRoutes = [
     JsonpModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [],
+  providers: [RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
