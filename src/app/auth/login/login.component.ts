@@ -16,16 +16,16 @@ export class LoginComponent{
         private router: Router,
         private loginService: LoginService) { }
 
-    onSubmit() {
+    login() {
         this.loading = true;
         this.loginService.login(this.model.username, this.model.password)
             .subscribe(
                 data => {
-                    this.router.navigate(['/bucketlists']);
+                        this.router.navigate(['/bucketlists']);                        
                 },
                 error => {
-                    this.loading = false;
-                });
-    }
+                       this.loading = false;
+            });
+     }
 
 }

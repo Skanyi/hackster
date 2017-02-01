@@ -13,7 +13,7 @@ import { RegisterService } from './auth/register/register.service';
 import { LoginService } from './auth/login/login.service';
 
 
-const appRoutes = [
+const appRoutes: Routes = [
    { path: 'auth/register', component: RegisterComponent },
    { path: 'auth/login', component: LoginComponent},
    { path: 'bucketlists', component: BucketlistComponent },
