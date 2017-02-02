@@ -1,5 +1,14 @@
-<h1>
-  {{title}}
-</h1>
+<div>
+        <nav class='navbar navbar-default'>
+            <div class='container-fluid'>
+                <ul class='nav navbar-nav'>
+                    <li><a [routerLink]="['/']"> {{ title}} </a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class='container'>
+            <router-outlet></router-outlet>
+        </div>
+     </div>
+
 <flash-messages></flash-messages>
-<router-outlet></router-outlet>

@@ -9,20 +9,24 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { BucketlistComponent } from './bucketlist/bucketlist.component';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
 
 import { RegisterService } from './auth/register/register.service';
 import { LoginService } from './auth/login/login.service';
 
 
 const appRoutes: Routes = [
+   { path: '', component: HomeComponent },
    { path: 'auth/register', component: RegisterComponent },
    { path: 'auth/login', component: LoginComponent},
    { path: 'bucketlists', component: BucketlistComponent },
+   { path: '**', redirectTo: '/', pathMatch: 'full'},
+
 ];
 
 @NgModule({
   declarations: [
-    AppComponent, RegisterComponent, BucketlistComponent, LoginComponent
+    AppComponent, RegisterComponent, BucketlistComponent, LoginComponent, HomeComponent
   ],
   imports: [
     BrowserModule,

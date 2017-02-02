@@ -1,5 +1,21 @@
-h1 {
-    text-align: center;
-    font-family: 'Indie Flower', cursive;
-    font-size: 60px;
+ul.navbar-nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #00BFFF;
 }
+
+ul.navbar-nav li {text-align: center;}
+
+ul.navbar-nav li a {
+    display: inline-block;
+    color: #f2f2f2;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-family: 'Indie Flower', cursive;
+    font-size: 17px;
+}
+
+ul.navbar-nav li a:hover {background-color: #555;}
