@@ -11,13 +11,13 @@ export class RegisterService {
 
     constructor(private http:Http) {}
 
-    create(user: User): Observable<User[]> {
+    create(user: User) {
         // set the headers of the post request
         let headers = new Headers({ 'Content-Type': 'application/json'});
         let options = new RequestOptions({ headers: headers });
         
         return this.http.post(this.registerurl, JSON.stringify(user), options)
-                        .map((response: Response) => response.json())
+                        .map((response: Response) => response)
                         .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //handles errors if any
     }
 }

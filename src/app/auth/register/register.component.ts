@@ -1,31 +1,37 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 import { RegisterService } from './register.service'
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'register.component.html'
+    templateUrl: 'register.component.html',
+    styleUrls: ['register.component.css'],
 })
 
-export class RegisterComponent{
+export class RegisterComponent {
     model: any = {};
-    loading = false;
 
     constructor(
+        private _flashMessagesService: FlashMessagesService,
         private router: Router,
         private registerService: RegisterService) { }
 
+    
     register() {
-        this.loading = true;
         this.registerService.create(this.model)
             .subscribe(
                 data => {
-                    this.router.navigate(['/bucketlists']);
+                    if(data.json().message === "user with that username already exists"){
+                         this._flashMessagesService.show('user with that username already exists', { timeout: 10000 });
+                    }
+                    else{
+                        this.router.navigate(['/bucketlists']);
+                        this._flashMessagesService.show('Registered Succesfully!!!', { timeout: 5000 });
+                    }
                 },
-                error => {
-                    this.loading = false;
-                });
+                );
     }
 
 }

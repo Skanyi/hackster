@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     JsonpModule,
+    FlashMessagesModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [RegisterService, LoginService],
