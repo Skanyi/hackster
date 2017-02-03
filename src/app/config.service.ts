@@ -1,3 +1,3 @@
 export class Config{
-    static heading: string = 'Hackster';
+    static heading: string = 'Home';
 }

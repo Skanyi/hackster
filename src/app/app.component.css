@@ -3,10 +3,10 @@ ul.navbar-nav {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #00BFFF;
+    background-color: black;
 }
 
-ul.navbar-nav li {text-align: center;}
+ul.navbar-nav li {text-align: left;}
 
 ul.navbar-nav li a {
     display: inline-block;
