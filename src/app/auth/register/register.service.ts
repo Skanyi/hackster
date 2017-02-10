@@ -3,6 +3,10 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
+// Import RxJs required methods
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 import { User } from './register'
 
 @Injectable()
@@ -18,7 +22,7 @@ export class RegisterService {
         
         return this.http.post(this.registerurl, JSON.stringify(user), options)
                         .map((response: Response) => response)
-                        .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //handles errors if any
+                        .catch((error:any) => Observable.throw(error.json().error || 'Server error')); 
     }
 }
 

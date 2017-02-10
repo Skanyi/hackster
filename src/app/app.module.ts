@@ -13,7 +13,7 @@ import { HomeComponent } from './home/home.component';
 
 import { RegisterService } from './auth/register/register.service';
 import { LoginService } from './auth/login/login.service';
-
+import { BucketlistService } from './bucketlist/bucketlist.service'
 
 const appRoutes: Routes = [
    { path: '', component: HomeComponent },
@@ -26,8 +26,13 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent, RegisterComponent, BucketlistComponent, LoginComponent, HomeComponent
+    AppComponent,
+    RegisterComponent, 
+    BucketlistComponent, 
+    LoginComponent, 
+    HomeComponent
   ],
+
   imports: [
     BrowserModule,
     FormsModule,
@@ -36,7 +41,8 @@ const appRoutes: Routes = [
     FlashMessagesModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [RegisterService, LoginService],
+  
+  providers: [RegisterService, LoginService, BucketlistService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

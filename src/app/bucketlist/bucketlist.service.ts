@@ -1,26 +1,58 @@
-// contains all the logic to access the rest api
-
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-//import { Bucketlist } from './bucketlist';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Bucketlist } from './bucketlist';
+import { LoginService } from '../auth/login/login.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
+// Import RxJs required methods
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do'; // allow us to display data in nice format
+import 'rxjs/add/operator/catch';
+
+// will have the logic of getting bucketlists one or many from db
 @Injectable()
 export class BucketlistService {
-    constructor(private http:Http) {
+    private _bucketlisturl = 'http://127.0.0.1:5000/bucketlists'
+    private headers: Headers;
 
+    constructor(
+        private http: Http, loginService: LoginService) {
+            // set the headers that will be used by all the functions below
+            this.headers = loginService.getHeaders();
+        }
+
+    // get all bucketlists of the logged in user
+    getBuckelists(): Observable<Bucketlist[]>{
+        let options = new RequestOptions({ headers: this.headers });
+        console.log(this.headers);
+        return this.http.get(this._bucketlisturl, options)
+                        .map((response: Response) => <Bucketlist[]> response.json())
+                        .do(data => console.log('All: ' + JSON.stringify(data)))
+                        .catch(this.handleError);
     }
-    // private _bucketlisturl = 'http://127.0.0.1:5000'
 
-    // getBuckelist(){
-    //     return this.http.get('${this._bucketlisturl}/buckelists')
-    //                     .map(res => <Bucketlist[]> res.json())
-    //                     .catch(this.handleError);
+    // Get one specified bucketlist
+    // getBucketlist(id: number): Observable<Bucketlist> {
+    //     return  this.getBuckelists()
+    //     .map((bucketlists: Bucketlist[]) => bucketlists.find(p => p.bucketlist_id === id));
     // }
 
-    // private handleError (error: Response) {
-    //     console.error(error);
-    //     return Observable.throw(error.json().error || 'server error')
-    // }
+    // create a new bucketlist
+    createBucketlist(bucketlist: Bucketlist){
+        let options = new RequestOptions({ headers: this.headers });
+
+        return this.http.post(this._bucketlisturl, bucketlist, options)
+                        .map((response: Response) => response.json())
+                        .catch(this.handleError); 
+    }
+
+    private handleError (error: Response) {
+        console.error(error);
+        return Observable.throw(error.json().error || 'server error')
+    }
 }
+
+// user should be logged in to get a bucketlist or get all
+// should be able to create a bucketlist
+// when creating, updating or deleting a bucketlist, must ensure the data type is json, user is logged in set on the headers

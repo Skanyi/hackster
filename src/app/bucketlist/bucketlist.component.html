@@ -1,1 +1,64 @@
-<h1> I love the progress </h1>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" [routerLink]="['/']" style="font-family: 'Indie Flower', cursive; font-size: 35px">
+        <span style="color: lightblue">Hackster</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!--a container that allow user logged in to create a new bucketlist-->
+
+<div class="container">
+    <div class="panel panel-bucketlist">
+        <div style="padding-left: 18px;" class="panel-heading">
+            <h2>Your Hackster Lists</h2>
+            <button class="btn btn-primary pull-left" data-toggle="modal" data-target="#createNew">
+                Create New Hackster List
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="createNew">
+                 <div class="modal-dialog">
+                     <!-- Modal content-->
+                     <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="bucketlist">New Bucketlist</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!--have the title and description of the bucketlist-->
+                            <form id="create-new-bucketlist" method="post" role="form" style="display: block;">
+                                <div class="form-group">
+                                    <input type="text" [(ngModel)]="model.title" id="title" class="form-control" required minlength="4" 
+                                    maxlength="24" placeholder="Title" name="title" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" [(ngModel)]="model.desc" id="desc" class="form-control" 
+                                    maxlength="250" placeholder="Description" name="desc" >
+                                </div>
+                                 <!--<div class="form-group">
+                                    <button [disabled]="loading" class="btn btn-primary">Create New Bucketlist</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                </div>-->
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-4 pull-left">
+                                        <input type="submit" (click)="createBucketlist()" class="form-control btn btn-success"
+                                            value="Create New Bucketlist">
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>

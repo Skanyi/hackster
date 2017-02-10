@@ -6,23 +6,35 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class LoginService {
+    private headers: Headers;
+    private loggedIn: boolean = false;
     private loginurl = "http://127.0.0.1:5000/auth/login";
     
-    constructor(private http:Http) { }
+    constructor(private http:Http) {
+        this.headers = new Headers();
+        this.headers.append("Content-Type", "application/json");
+        this.headers.append("Access-Control-Allow-Origin", "*");
+        this.loggedIn = !!window.localStorage.getItem('Authorization');
+     }
 
     login(username: string, password: string){
         // set the headers of the post request
-        let headers = new Headers({ 'Content-Type': 'application/json'});
-        let options = new RequestOptions({ headers: headers });
+        let options = new RequestOptions({ headers: this.headers });
 
         return this.http.post(this.loginurl, JSON.stringify({username: username, password: password}), options)
                         .map((response: Response) => {
                 // login successful if there's a token in the response
                 let current_user = response.json();
-                if (current_user && current_user.token) {
+                if (current_user.Authorization) { 
                     // store user details and token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(current_user));
-                    return response.json();
+                    //console.log(localStorage.setItem('username', response.json().username));
+                    //console.log(localStorage.setItem('currentUser', JSON.stringify(current_user)));
+                    window.localStorage.setItem('Authorization', current_user.Authorization);
+                    let token = window.localStorage.getItem('Authorization');
+                    this.headers.append("Authorization", current_user.Authorization);
+                    this.loggedIn = true;                    
+                    
+                    return response.json().Authorization;
                    
                 }
             });
@@ -31,6 +43,14 @@ export class LoginService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+    }
+
+    isLoggedIn(): boolean {
+        return this.loggedIn;
+    }
+
+    getHeaders(): Headers {
+        return this.headers;
     }
 
 }
