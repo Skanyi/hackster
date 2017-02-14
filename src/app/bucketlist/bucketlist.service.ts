@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Bucketlist } from './bucketlist';
+import { IBucketlist } from './bucketlist';
 import { LoginService } from '../auth/login/login.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -23,11 +23,10 @@ export class BucketlistService {
         }
 
     // get all bucketlists of the logged in user
-    getBuckelists(): Observable<Bucketlist[]>{
+    public getBuckelists() {
         let options = new RequestOptions({ headers: this.headers });
-        console.log(this.headers);
         return this.http.get(this._bucketlisturl, options)
-                        .map((response: Response) => <Bucketlist[]> response.json())
+                        .map((response: Response) => <IBucketlist[]> response.json())
                         .do(data => console.log('All: ' + JSON.stringify(data)))
                         .catch(this.handleError);
     }
@@ -39,12 +38,21 @@ export class BucketlistService {
     // }
 
     // create a new bucketlist
-    createBucketlist(bucketlist: Bucketlist){
+    createBucketlist(bucketlist: IBucketlist){
         let options = new RequestOptions({ headers: this.headers });
 
         return this.http.post(this._bucketlisturl, bucketlist, options)
                         .map((response: Response) => response.json())
                         .catch(this.handleError); 
+    }
+
+    // update a specific bucketlist
+    updateBucketlist(bucketlist: IBucketlist): Observable<any> {
+        let options = new RequestOptions({ headers: this.headers });
+        return this.http.put((this._bucketlisturl + '/' + bucketlist.bucketlist_id), bucketlist, options)
+                        .map(data => { console.log(data)})
+                        .do(data => { console.log(data)})
+                        .catch(this.handleError);
     }
 
     private handleError (error: Response) {

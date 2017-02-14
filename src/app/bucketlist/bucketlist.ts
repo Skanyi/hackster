@@ -1,8 +1,7 @@
-export class Bucketlist {
-    constructor(
-        private bucketlist_id: number,
-        private title: string,
-        private desc: string,
-    ) {}
+/* Defines the product entity */
+export interface IBucketlist {
+        bucketlist_id: number,
+        title: string,
+        desc: string,
 }
 

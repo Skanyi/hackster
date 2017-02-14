@@ -3,29 +3,38 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
 
 import { BucketlistService } from './bucketlist.service';
-import { Bucketlist } from './bucketlist';
+import { IBucketlist } from './bucketlist';
 //import { Bucketlist } from './bucketlist';
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'bucketlist.component.html'
+  templateUrl: 'bucketlist.component.html',
+  styleUrls: ['./bucketlist.component.css']
 })
 
 export class BucketlistComponent implements OnInit {
   model: any = {};
   pageTitle: string = 'Bucketlist'
   errorMessage: string;
-  bucketlists: Bucketlist[];
+
+  bucketlists: IBucketlist[];
 
   constructor(
     private bucketlistService: BucketlistService,
     private router: Router,
     private _flashMessagesService: FlashMessagesService) {}
 
+// pass the data of the current bucketlist
+getModalValues(bucketlist_id, name, desc) {
+    this.model.bucketlist_id = bucketlist_id;
+    this.model.title = name
+    this.model.desc = desc
+  }
+
   ngOnInit(): void {
            this.bucketlistService.getBuckelists()
                      .subscribe(
-                       bucketlists => this.bucketlists = bucketlists,
+                       bucketlists => this.bucketlists = bucketlists.bucketlists, 
                        error =>  this.errorMessage = <any>error);
     }
     // creates a new bucketlist
@@ -43,6 +52,16 @@ export class BucketlistComponent implements OnInit {
                     }
                 },
                 );
+    }
+
+    // update a bucketlist 
+    updateBucketlist(): void{
+        this.bucketlistService.updateBucketlist(this.model)
+            .subscribe(
+                data => { console.log(data)},
+                (error) => { console.log(error)}
+            );
+            window.location.reload();
     }
 }
 
