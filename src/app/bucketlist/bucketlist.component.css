@@ -26,11 +26,22 @@
 h2
 {
     margin:3px;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 .well-add-card
 {
     margin-bottom:10px;
+}
+.well-add-card a:link
+{
+    color: lightblue;
+    text-decoration: none;
+}
+.well-add-card a:hover
+{
+    color: cadetblue;
+    text-decoration: none;
+    background-color: #FFA07A;
 }
 .btn-add-card
 {

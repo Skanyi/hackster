@@ -1,0 +1,85 @@
+<body>
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" [routerLink]="['/']">Hackster</a>
+    </div>
+
+    <!-- Adds the log out link on the navbar-right -->
+    <div class="navbar-collapse pull-right" >
+    <button type="button"><a [routerLink]="['/']">Logout
+        <span class="glyphicon glyphicon-log-out pull-right"></span></a>
+    </button>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+</body>
+
+<!--a container that allow user logged in to create a new bucketlist-->
+
+            <!-- Modal -->
+            <div class="modal fade" id="createNew" role="dialog">
+                 <div class="modal-dialog">
+                     <!-- Modal content-->
+                     <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="bucketlist">New Bucketlist Item</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!--have the title of the bucketlist item -->
+                            <form id="create-new-bucketlist item" method="post" role="form" style="display: block;">
+                                <div class="form-group">
+                                    <input type="text" [(ngModel)]="model.title" id="title" class="form-control" required minlength="4" 
+                                    maxlength="30" placeholder="Title" name="title" >
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-4 pull-left">
+                                        <input type="submit" (click)="createBucketlistitem()" class="form-control btn btn-success" data-dismiss="modal"
+                                            value="Create New">
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                     </div>
+                 </div>
+            </div>
+            <!-- End of modal -->
+
+<!--Now a container that will display the bucketlist items of a bucketlist -->
+<div class="col-lg-12">
+    <h1>My Bucketlists Items
+    <a class="btn icon-btn btn-primary pull-right" data-toggle="modal" data-target="#createNew">
+        <span class="glyphicon btn-glyphicon glyphicon-plus img-circle"></span>Add New Bucketlist Item</a></h1>
+</div>
+
+<div class="container">
+            <div class="col-sm-12">
+                <div class="bs-calltoaction bs-calltoaction-default">
+                    <div class="row">
+                        <div class="col-md-9 cta-contents">
+                            <h1 class="cta-title">Its a Call To Action</h1>
+                            <div class="cta-desc">
+                                <p>Describe the action here.</p>
+                                <p>Describe the action here.</p>
+                                <p>Describe the action here.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 cta-button">
+                            <a href="#" class="btn btn-lg btn-block btn-info">Go for It!</a>
+                        </div>
+                     </div>
+                </div>
+
+                
+            </div>
+        </div>

@@ -25,10 +25,10 @@ export class BucketlistComponent implements OnInit {
     private _flashMessagesService: FlashMessagesService) {}
 
 // pass the data of the current bucketlist
-getModalValues(bucketlist_id, name, desc) {
+getModalValues(bucketlist_id, title, description) {
     this.model.bucketlist_id = bucketlist_id;
-    this.model.title = name
-    this.model.desc = desc
+    this.model.title = title
+    this.model.description = description
   }
 
   ngOnInit(): void {
@@ -62,6 +62,16 @@ getModalValues(bucketlist_id, name, desc) {
                 (error) => { console.log(error)}
             );
             window.location.reload();
+    }
+
+    // delete a bucketlist
+    deleteBucketlist(){
+        this.bucketlistService.deleteBucketlist(this.model)
+        .subscribe(
+            data => { data },
+            (error) => { error}
+        );
+        window.location.reload(true);
     }
 }
 

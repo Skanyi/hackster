@@ -1,7 +1,9 @@
 /* Defines the product entity */
+import { IBucketlistitem } from '../bucketlistitem/bucketlistitem'
 export interface IBucketlist {
         bucketlist_id: number,
         title: string,
-        desc: string,
+        description: string,
+        items: IBucketlistitem[],
 }
 
