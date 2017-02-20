@@ -71,21 +71,38 @@ export class BucketlistService {
     // get all the bucketlist items of a specific bucketlist
     getBucketlistitems(bucketlistitem: IBucketlistitem) {
         let options = new RequestOptions({ headers: this.headers });
-        // this get the information of one bucketlist and display all of them in a page
-        // all the columns
-        // display the items well
-        // return this.http.get((this._bucketlisturl + '/' + bucketlistitem.bucketlist_id), options)
-        //                 .map((response: Response) => <IBucketlistitem[]> response.json())
-        //                 .do(data => console.log('All: ' + JSON.stringify(data)))
-        //                 .catch(this.handleError);
+    
+        return this.http.get((this._bucketlisturl + '/' + bucketlistitem.bucketlist_id), options)
+                        .map((response: Response) => <IBucketlist[]> response.json())
+                        .do(data => console.log('All: ' + JSON.stringify(data)))
+                        .catch(this.handleError);
     }
 
-    // create a new bucketlist item on a specific bucketlist
+    // create a new bucketlist item of a specific bucketlist
     createBucketlistitem(bucketlistitem: IBucketlistitem) {
         let options = new RequestOptions({ headers: this.headers })
 
         return this.http.post((this._bucketlisturl + '/' + bucketlistitem.bucketlist_id + '/items'), bucketlistitem, options)
                         .map((response: Response) => response.json())
+                        .catch(this.handleError);
+    }
+
+    // update a bucketlist item of a specific bucketlist
+    updateBucketlistitem(bucketlistitem: IBucketlistitem) {
+        let options = new RequestOptions({ headers: this.headers })
+
+        return this.http.put((this._bucketlisturl + '/' + bucketlistitem.bucketlist_id + '/items/' + bucketlistitem.item_id), bucketlistitem, options)
+                        .map((response: Response) => response.json())
+                        .catch(this.handleError);
+    }
+
+    // delete a bucketlist item of a specific bucketlist
+    deleteBucketlistitem(bucketlistitem: IBucketlistitem) {
+        let options = new RequestOptions({ headers: this.headers})
+
+        return this.http.delete((this._bucketlisturl + '/' + bucketlistitem.bucketlist_id + '/items/' + bucketlistitem.item_id), options)
+                        .map(data => { console.log(data)})
+                        .do(data => { console.log(data)})
                         .catch(this.handleError);
     }
 

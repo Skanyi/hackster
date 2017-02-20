@@ -14,7 +14,7 @@ export class LoginService {
         this.headers = new Headers();
         this.headers.append("Content-Type", "application/json");
         this.headers.append("Access-Control-Allow-Origin", "*");
-        this.loggedIn = !!window.localStorage.getItem('Authorization');
+        //this.loggedIn = !localStorage.getItem('Authorization');
      }
 
     login(username: string, password: string){
@@ -29,10 +29,12 @@ export class LoginService {
                     // store user details and token in local storage to keep user logged in between page refreshes
                     //console.log(localStorage.setItem('username', response.json().username));
                     //console.log(localStorage.setItem('currentUser', JSON.stringify(current_user)));
-                    window.localStorage.setItem('Authorization', current_user.Authorization);
+                    // window.localStorage.setItem('username', response.json().username);
+                    localStorage.setItem('Authorization', current_user.Authorization);
                     let token = window.localStorage.getItem('Authorization');
-                    this.headers.append("Authorization", current_user.Authorization);
-                    this.loggedIn = true;                    
+                    this.headers.append("Authorization", token);
+                    localStorage.setItem('Headers', JSON.stringify(this.headers))
+                    // this.loggedIn = true;                    
                     
                     return response.json().Authorization;
                    
@@ -42,18 +44,17 @@ export class LoginService {
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('Headers');
+        // this.loggedIn = false;
     }
 
-    isLoggedIn(): boolean {
-        return this.loggedIn;
-    }
+    // isLoggedIn(): boolean {
+    //     return this.loggedIn;
+    // }
 
     getHeaders(): Headers {
-        return this.headers;
+        let headers = JSON.parse(localStorage.getItem('Headers'));
+        return headers;
     }
 
 }
-
-// this will have all the logic for user login
-// can i have all the user authentication here, user registration

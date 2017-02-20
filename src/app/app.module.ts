@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { RegisterService } from './auth/register/register.service';
 import { LoginService } from './auth/login/login.service';
 import { BucketlistService } from './bucketlist/bucketlist.service';
+import { StatusPipe } from './bucketlistitem/bucketlistitem.pipe';
 
 
 const appRoutes: Routes = [
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
     BucketlistComponent, 
     BucketlistItemComponent,
     LoginComponent, 
-    HomeComponent
+    HomeComponent,
+    StatusPipe,
   ],
 
   imports: [

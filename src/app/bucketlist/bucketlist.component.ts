@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { BucketlistService } from './bucketlist.service';
 import { IBucketlist } from './bucketlist';
+import { LoginService } from '../auth/login/login.service';
 //import { Bucketlist } from './bucketlist';
 
 @Component({
@@ -14,12 +15,14 @@ import { IBucketlist } from './bucketlist';
 
 export class BucketlistComponent implements OnInit {
   model: any = {};
+  currentUser: string;
   pageTitle: string = 'Bucketlist'
   errorMessage: string;
 
   bucketlists: IBucketlist[];
 
   constructor(
+    private loginService: LoginService,
     private bucketlistService: BucketlistService,
     private router: Router,
     private _flashMessagesService: FlashMessagesService) {}
@@ -32,6 +35,13 @@ getModalValues(bucketlist_id, title, description) {
   }
 
   ngOnInit(): void {
+    //   if (this.loginService.isLoggedIn()) {
+    //         this.currentUser = window.localStorage.getItem('username');
+    //         this.router.navigate(['/bucketlists']);
+    //         } else {
+    //         this.router.navigate(['/auth/login']);
+    //         }
+
            this.bucketlistService.getBuckelists()
                      .subscribe(
                        bucketlists => this.bucketlists = bucketlists.bucketlists, 
@@ -52,6 +62,7 @@ getModalValues(bucketlist_id, title, description) {
                     }
                 },
                 );
+                 window.location.reload();
     }
 
     // update a bucketlist 
@@ -74,6 +85,3 @@ getModalValues(bucketlist_id, title, description) {
         window.location.reload(true);
     }
 }
-
-// subscribes to the bucketlist.service so that it can get data from  the service / returned observable
-// observable don't emit data until they are subscribed

@@ -14,7 +14,7 @@ import { BucketlistService } from '../bucketlist/bucketlist.service';
 export class BucketlistItemComponent implements OnInit {
     model: any = {};
     errorMessage: string;
-    bucketlistitems: IBucketlistitem[];
+    items: IBucketlistitem[];
 
     constructor(
         private _route: ActivatedRoute,
@@ -28,12 +28,14 @@ export class BucketlistItemComponent implements OnInit {
         this.model.title = title;
         this.model.done = done;
     }
+    
     // get bucketlist items of a specific bucketlist
     ngOnInit(): void{
-        // this.bucketlistService.getBucketlistitems(this.model.bucketlist_id)
-        // .subscribe(
-        //     bucketlistitems => this.bucketlistitems = bucketlistitems,
-        //     error => this.errorMessage = <any>error);
+        this.model.bucketlist_id = this._route.snapshot.params['bucketlist_id'];
+        this.bucketlistService.getBucketlistitems(this.model)
+        .subscribe(
+            items => this.items = items.items,
+            error => this.errorMessage = <any>error);
     }
 
     // create a bucketlist item 
@@ -50,7 +52,28 @@ export class BucketlistItemComponent implements OnInit {
                     }
                 },
             );
+            location.reload();
     }
 
     // update a specific bucketlist item
+    updateBucketlistitem(): void{
+        this.model.bucketlist_id = this._route.snapshot.params['bucketlist_id'];
+        this.bucketlistService.updateBucketlistitem(this.model)
+            .subscribe(
+                data => { console.log(data)},
+                (error) => { console.log(error)}
+            );
+            window.location.reload();
+    }
+
+    // delete a bucketlist
+    deleteBucketlistitem(){
+        this.model.bucketlist_id = this._route.snapshot.params['bucketlist_id'];
+        this.bucketlistService.deleteBucketlistitem(this.model)
+        .subscribe(
+            data => { data },
+            (error) => { error}
+        );
+        window.location.reload(true);
+    }
 }
