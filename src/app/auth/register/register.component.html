@@ -18,5 +18,8 @@
             <button [disabled]="loading" class="btn btn-primary">Register</button>
             <a [routerLink]="['/']" class="btn btn-link">Cancel</a>
         </div>
+        <div style="color: red" *ngIf="errorMessage">
+            <p> Username already taken </p>
+        </div>
     </form>
 </div>

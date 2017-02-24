@@ -12,6 +12,7 @@ import { LoginService } from './login.service';
 
 export class LoginComponent{
     model: any = {};
+    errorMessage: string;
 
     constructor(
         private _flashMessagesService: FlashMessagesService,
@@ -26,7 +27,7 @@ export class LoginComponent{
                         this._flashMessagesService.show('Logged in Succesfully', { timeout: 5000 });                      
                 },
                 error => {
-                       this._flashMessagesService.show('Invalid user or password', { timeout: 10000 });
+                    this.errorMessage = error;
             });
      }
 

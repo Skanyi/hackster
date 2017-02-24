@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { BucketlistService } from './bucketlist.service';
 import { IBucketlist } from './bucketlist';
 import { LoginService } from '../auth/login/login.service';
-//import { Bucketlist } from './bucketlist';
 
 @Component({
   moduleId: module.id,
@@ -15,8 +14,7 @@ import { LoginService } from '../auth/login/login.service';
 
 export class BucketlistComponent implements OnInit {
   model: any = {};
-  currentUser: string;
-  pageTitle: string = 'Bucketlist'
+  pageTitle: string = 'Bucketlist';
   errorMessage: string;
 
   bucketlists: IBucketlist[];
@@ -35,16 +33,15 @@ getModalValues(bucketlist_id, title, description) {
   }
 
   ngOnInit(): void {
-    //   if (this.loginService.isLoggedIn()) {
-    //         this.currentUser = window.localStorage.getItem('username');
-    //         this.router.navigate(['/bucketlists']);
-    //         } else {
-    //         this.router.navigate(['/auth/login']);
-    //         }
+      if (this.loginService.isLoggedIn()) {
+            this.router.navigate(['/bucketlists']);
+            } else {
+            this.router.navigate(['/auth/login']);
+            }
 
            this.bucketlistService.getBuckelists()
                      .subscribe(
-                       bucketlists => this.bucketlists = bucketlists.bucketlists, 
+                       bucketlists => this.bucketlists = bucketlists.bucketlists,
                        error =>  this.errorMessage = <any>error);
     }
     // creates a new bucketlist
@@ -53,7 +50,8 @@ getModalValues(bucketlist_id, title, description) {
             .subscribe(
                 data => { console.log(data)
                     if(data.json().message === 'Bucketlist with that title already exists'){
-                         this._flashMessagesService.show('Bucketlist with that title already exists', { timeout: 10000 });
+                        this.errorMessage = 'Bucketlist with that title already exists';
+                        //  this._flashMessagesService.show('Bucketlist with that title already exists', { timeout: 10000 });
                          this.router.navigate(['/bucketlists']);
                     }
                     else{

@@ -1,22 +1,3 @@
-<body>
-<nav class="navbar navbar-default navbar-inverse" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <a class="navbar-brand" [routerLink]="['/']">Hackster</a>
-    </div>
-
-    <!-- Adds the log out link on the navbar-right -->
-    <div class="navbar-collapse pull-right" >
-    <button type="button"><a [routerLink]="['/']">Logout
-        <span class="glyphicon glyphicon-log-out pull-right"></span></a>
-    </button>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
-</body>
-
 <!--a modal that allow user logged in to create a new bucketlist-->
 
             <!-- Modal -->
@@ -56,10 +37,16 @@
             <!-- End of modal -->
 
 <!--Now a container that will display the bucketlist items of a bucketlist -->
-<div class="col-lg-12">
-    <h1>My Bucketlists Items
-    <a class="btn icon-btn btn-primary pull-right" data-toggle="modal" data-target="#createNew">
-        <span class="glyphicon btn-glyphicon glyphicon-plus img-circle"></span>Add New Bucketlist Item</a></h1>
+
+<div class="panel-body" style="text-align:center;">
+     <h2>What is your dream</h2>
+     <div class="panel-content">
+        <label> <h3> Make a list </h3>
+            <a class="btn set-btn btn-link" data-toggle="modal" data-target="#createNew"> 
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+        </label>
+     </div>
 </div>
 
 <div class="container">
@@ -70,24 +57,22 @@
                             <h1 class="cta-title">{{ item.title }}</h1>
                             <div class="cta-desc">
                                 <p>Date Created: {{ item.date_created | date:'medium' }}</p>
-                                <p>Status: {{ item.done | status }}</p>
+                                 <p>Date Modified: {{ item.date_modified | date:'medium' }}</p>
+                                
                             </div>
                         </div>
                         <div class="col-md-3 cta-button">
-                            <label>
-                                <input type="checkbox" data-toggle="toggle" data-on="Not Done" data-off="Done" data-onstyle="default" data-offstyle="success">
-                            
-                            </label>
+                                <p>Status: {{ item.done | status }}</p>
                         </div>
 
-                        <button type="button" (click)='getModalValues(item.item_id, item.bucketlist_d, item.title, item.done)' class="btn btn-success pull-right" 
-                                                            data-toggle="modal" [attr.data-target]="'#editBucketlistItem' + i">
+                        <button type="button" (click)='getModalValues(item.item_id, item.bucketlist_d, item.title, item.done)' 
+                            class="btn btn-link pull-right" data-toggle="modal" [attr.data-target]="'#editBucketlistItem' + i">
                                     <span class="glyphicon glyphicon-edit pull-left text-primary"></span>
                         </button>
 
-                        <button type="button" (click)='getModalValues(item.item_id, item.bucketlist_d, item.title, item.done)' class="btn btn-danger pull-right" 
+                        <button type="button" (click)='getModalValues(item.item_id, item.bucketlist_d, item.title, item.done)' class="btn btn-link pull-right" 
                                                             data-toggle="modal" [attr.data-target]="'#confirmDelete' + i">
-                                    <span class="glyphicon glyphicon-trash pull-right text-primary"></span>
+                                    <span class="glyphicon glyphicon-trash pull-right text-primary" style="color: red"></span>
                         </button>
 
                      </div>
@@ -153,4 +138,8 @@
 
             </div>
         
+
+        
  </div>
+
+ 

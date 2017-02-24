@@ -1,12 +1,17 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" [routerLink]="['/']" style="font-family: 'Indie Flower', cursive; font-size: 35px">
-        <span style="color: lightblue">Hackster</span>
-      </a>
-    </div>
-  </div>
-</nav>
+<div class="search-box pull pull-right">
+    <a *ngIf="loginService.isLoggedIn()" class="btn btn-link btn-outline btn-circle collapsed"  data-toggle="collapse" 
+            href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3" style="color: white">Search
+            <span class="glyphicon glyphicon-search"></span></a>
+</div>
+
+<div class="collapse nav navbar-nav nav-collapse slide-down pull-right" id="nav-collapse3">
+    <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+            <input type="text" [(ngModel)]='searchTerm' name="searchTerm" placeholder="Search" />
+        </div>
+
+    </form>
+</div>
 
 <!--a container that allow user logged in to create a new bucketlist-->
 
@@ -42,35 +47,45 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     </div>
                                 </div>
-
+                                
                             </form>
                         </div>
                      </div>
                  </div>
             </div>
-           
+
 <!-- A container that displays the bucketlists with all the buttons -->
                 <div class="container" id="tourpackages-carousel">
                     <div class="row">
                         <div class="col-lg-12"><h1>My Bucketlists <a class="btn icon-btn btn-primary pull-right" data-toggle="modal" data-target="#createNew"><span class="glyphicon btn-glyphicon glyphicon-plus img-circle"></span> Add New Bucketlist</a></h1></div>
-                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" *ngFor="let bucketlist of bucketlists; let i = index">
+                        <div style="color: red" *ngIf="errorMessage">
+                            <p>Bucketlist with that title already exists </p>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" *ngFor="let bucketlist of bucketlists | bucketlistFilter:searchTerm | paginate: {itemsPerPage: 9, currentPage:page, id: '1'}; 
+                                let i = index" id="bucket-div">
+                            
                         <div class="thumbnail">
                             <div class="caption">
                                 <div class='col-lg-12'>
-                                    <button type="button" (click)='getModalValues(bucketlist.bucketlist_id, bucketlist.title, bucketlist.description)' class="btn btn-danger pull-right" 
-                                                            data-toggle="modal" [attr.data-target]="'#confirmDelete' + i">
-                                    <span class="glyphicon glyphicon-trash pull-right text-primary"></span>
+                                    <button type="button" (click)='getModalValues(bucketlist.bucketlist_id, bucketlist.title, bucketlist.description)'
+                                     class="btn btn-link pull-right"  data-toggle="modal" [attr.data-target]="'#confirmDelete' + i">
+                                    <span class="glyphicon glyphicon-trash pull-right" style="color: #721911"></span>
                                     </button>
                                 </div>
+                            
                                     <div class='col-lg-12 well well-add-card'>
                                          <a [routerLink]="['/bucketlists', bucketlist.bucketlist_id]" class="btn btn-link">
                                              <h2>{{ bucketlist.title }}</h2>
                                          </a>
+                                         <h4>{{ bucketlist.description }}</h4>
                                     </div>
+                                
 
-                                <button type="button" (click)='getModalValues(bucketlist.bucketlist_id, bucketlist.title, bucketlist.description)' class="btn btn-success btn btn-primary btn-xs btn-edit btn-add-card" 
-                                                        data-toggle="modal" [attr.data-target]="'#editBucketList' + i">Edit</button>
+                                <a (click)='getModalValues(bucketlist.bucketlist_id, bucketlist.title, bucketlist.description)' class="btn btn-edit" 
+                                                        data-toggle="modal" [attr.data-target]="'#editBucketList' + i"><span class="glyphicon glyphicon-pencil"> Edit</span></a>
                             </div>
+                            
                         </div>
 
                           <!-- Edit Modal -->
@@ -136,4 +151,15 @@
                 </div> <!-- End container -->
 
 <!--end modal-->
-              
+<div class="paginate-section">
+    <pagination-controls (pageChange)="page = $event" id="1"
+                        maxSize="5"
+                        directionLinks="true"
+                        autoHide="false"
+                        previousLabel="Previous"
+                        nextLabel="Next"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+</div>

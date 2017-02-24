@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -10,11 +11,11 @@ export class LoginService {
     private loggedIn: boolean = false;
     private loginurl = "http://127.0.0.1:5000/auth/login";
     
-    constructor(private http:Http) {
+    constructor(private http: Http, private router: Router) {
         this.headers = new Headers();
         this.headers.append("Content-Type", "application/json");
         this.headers.append("Access-Control-Allow-Origin", "*");
-        //this.loggedIn = !localStorage.getItem('Authorization');
+        this.loggedIn = !!localStorage.getItem('Authorization');
      }
 
     login(username: string, password: string){
@@ -26,15 +27,14 @@ export class LoginService {
                 // login successful if there's a token in the response
                 let current_user = response.json();
                 if (current_user.Authorization) { 
-                    // store user details and token in local storage to keep user logged in between page refreshes
-                    //console.log(localStorage.setItem('username', response.json().username));
-                    //console.log(localStorage.setItem('currentUser', JSON.stringify(current_user)));
-                    // window.localStorage.setItem('username', response.json().username);
+                    localStorage.setItem('username', current_user.username);
                     localStorage.setItem('Authorization', current_user.Authorization);
-                    let token = window.localStorage.getItem('Authorization');
+                    let token = localStorage.getItem('Authorization');
+                    let user = localStorage.getItem('username');
                     this.headers.append("Authorization", token);
+                    this.headers.append('username', user);
                     localStorage.setItem('Headers', JSON.stringify(this.headers))
-                    // this.loggedIn = true;                    
+                    this.loggedIn = true;                    
                     
                     return response.json().Authorization;
                    
@@ -45,12 +45,14 @@ export class LoginService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('Headers');
-        // this.loggedIn = false;
+        localStorage.removeItem('Authorization');
+        this.loggedIn = false;
+        this.router.navigate(['/']);
     }
 
-    // isLoggedIn(): boolean {
-    //     return this.loggedIn;
-    // }
+    isLoggedIn(): boolean {
+        return this.loggedIn;
+    }
 
     getHeaders(): Headers {
         let headers = JSON.parse(localStorage.getItem('Headers'));

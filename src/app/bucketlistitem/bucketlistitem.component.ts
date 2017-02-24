@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { IBucketlistitem } from './bucketlistitem';
+// import { IBucketlist } from '../bucketlist/bucketlist';
 
 import { BucketlistService } from '../bucketlist/bucketlist.service';
 
@@ -15,6 +16,7 @@ export class BucketlistItemComponent implements OnInit {
     model: any = {};
     errorMessage: string;
     items: IBucketlistitem[];
+    // bucketlist: IBucketlist[];
 
     constructor(
         private _route: ActivatedRoute,

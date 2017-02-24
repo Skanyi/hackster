@@ -12,6 +12,7 @@ import { RegisterService } from './register.service'
 
 export class RegisterComponent {
     model: any = {};
+    errorMessage: string;
 
     constructor(
         private _flashMessagesService: FlashMessagesService,
@@ -24,10 +25,10 @@ export class RegisterComponent {
             .subscribe(
                 data => {
                     if(data.json().message === "user with that username already exists"){
-                         this._flashMessagesService.show('user with that username already exists', { timeout: 10000 });
+                         this.errorMessage = "user with that username already exists";
                     }
                     else{
-                        this.router.navigate(['/bucketlists']);
+                        this.router.navigate(['/auth/login']);
                         this._flashMessagesService.show('Registered Succesfully!!!', { timeout: 5000 });
                     }
                 },

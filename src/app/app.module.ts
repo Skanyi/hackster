@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { Ng2PaginationModule } from 'ng2-pagination';
 
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -16,6 +17,7 @@ import { RegisterService } from './auth/register/register.service';
 import { LoginService } from './auth/login/login.service';
 import { BucketlistService } from './bucketlist/bucketlist.service';
 import { StatusPipe } from './bucketlistitem/bucketlistitem.pipe';
+import { BucketlistFilterPipe } from './bucketlist/bucketlist.filter';
 
 
 const appRoutes: Routes = [
@@ -37,6 +39,7 @@ const appRoutes: Routes = [
     LoginComponent, 
     HomeComponent,
     StatusPipe,
+    BucketlistFilterPipe,
   ],
 
   imports: [
@@ -45,6 +48,7 @@ const appRoutes: Routes = [
     HttpModule,
     JsonpModule,
     FlashMessagesModule,
+    Ng2PaginationModule,
     RouterModule.forRoot(appRoutes),
   ],
   

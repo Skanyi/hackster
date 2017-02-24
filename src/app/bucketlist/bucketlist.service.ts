@@ -32,12 +32,6 @@ export class BucketlistService {
                         .catch(this.handleError);
     }
 
-    // Get one specified bucketlist
-    // getBucketlist(id: number): Observable<Bucketlist> {
-    //     return  this.getBuckelists()
-    //     .map((bucketlists: Bucketlist[]) => bucketlists.find(p => p.bucketlist_id === id));
-    // }
-
     // create a new bucketlist
     createBucketlist(bucketlist: IBucketlist){
         let options = new RequestOptions({ headers: this.headers });
