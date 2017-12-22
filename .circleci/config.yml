@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/workspace
     docker:
-      - image: kanyi/circleci-gcloud-dev
+      - image: node:8.0
       - image: postgres:9.6-alpine
         environment:
           POSTGRES_USER: ubuntu
@@ -15,9 +15,6 @@ jobs:
       - setup_remote_docker
       - restore_cache:
             key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
-      - run:
-          name: Install Virtual environment
-          command: apt-get install python3-venv -y
       - run:
           name: Install dependancies
           command: |
@@ -53,7 +50,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Deploy Hackster application
-          command: ./shared/deploy.sh
+          command: ./deploy.sh
 
 workflows:
   version: 2
