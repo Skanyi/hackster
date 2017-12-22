@@ -21,7 +21,8 @@ export class AppComponent {
 
   getUser() {
     this.currentUser = localStorage.getItem('username');
-    console.log(this.currentUser)
+    return this.currentUser;
+
   }
 
 }

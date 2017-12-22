@@ -105,7 +105,3 @@ export class BucketlistService {
         return Observable.throw(error.json().error || 'server error')
     }
 }
-
-// user should be logged in to get a bucketlist or get all
-// should be able to create a bucketlist
-// when creating, updating or deleting a bucketlist, must ensure the data type is json, user is logged in set on the headers

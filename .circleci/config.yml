@@ -1,0 +1,71 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/workspace
+    docker:
+      - image: kanyi/circleci-gcloud-dev
+      - image: postgres:9.6-alpine
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: ""
+
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+            key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
+      - run:
+          name: Install Virtual environment
+          command: apt-get install python3-venv -y
+      - run:
+          name: Install dependancies
+          command: |
+            npm install
+      - save_cache:
+            key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
+            paths:
+              - ./node-modules
+      - run:
+          name: Run tests
+          command: |
+            echo "no test available"
+  
+  deploy:
+    working_directory: ~/workspace
+    docker:
+      - image: kanyi/circleci-gcloud-dev
+        environment:
+          DATABASE_URL: postgres://ubuntu@localhost:5432/circle_test
+          TESTING: testing
+          PROJECT_NAME: cyborg-staging
+          CLUSTER_NAME: staging
+          CLOUDSDK_COMPUTE_ZONE: us-east1-c
+          CONTAINER_NAME: hackster
+          DEPLOYMENT: hackster
+          IMAGE: hackster
+          PROJECT_NAME_PROD: cyborg-189012
+          CLUSTER_NAME_PROD: cyborg-prod
+          CLOUDSDK_COMPUTE_ZONE_PROD: us-east1-b
+
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Deploy Hackster application
+          command: ./deploy.sh
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: 
+                - master 
+                - develop    
+

@@ -9,10 +9,3 @@ export class BucketlistFilterPipe implements PipeTransform {
             bucketlist.title.toLocaleLowerCase().indexOf(term) !== -1) : value;
     }
 }
-
-
-// transform(value: IProduct[], filter: string): IProduct[] {
-//         filter = filter ? filter.toLocaleLowerCase() : null;
-//         return filter ? value.filter((product: IProduct) =>
-//             product.productName.toLocaleLowerCase().indexOf(filter) !== -1) : value;
-//     }

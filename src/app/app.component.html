@@ -22,8 +22,8 @@
                       <ul class="nav navbar-nav navbar-right">
                         <li><a *ngIf="!loginService.isLoggedIn()" [routerLink]="['auth/login']"> Login</a></li>
                         <li><a *ngIf="!loginService.isLoggedIn()" [routerLink]="['auth/register']"> Register </a></li>
-                        <li><a *ngIf="loginService.isLoggedIn()"> Welcome {{ currentUser }}</a></li>
-                        <li><a *ngIf="loginService.isLoggedIn()" (click)='loginService.logout()' [routerLink]="['/']"> Logout</a></li>
+                        <li><a *ngIf="loginService.isLoggedIn()"> Welcome {{ getUser() }}</a></li>
+                        <li><a *ngIf="loginService.isLoggedIn()" (click)='loginService.logout()'> Logout</a></li>
                       </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
@@ -41,7 +41,7 @@
 
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">© 2017 - All Rights with MIT License Designed by Stephen Kanyi</p>
+        <p class="text-muted">© 2017 - All Rights with MIT License Designed by <a href="https://github.com/pythonGeek"> Stephen Kanyi</a></p>
       </div>
     </footer>
     

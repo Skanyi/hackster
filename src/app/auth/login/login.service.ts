@@ -15,7 +15,7 @@ export class LoginService {
         this.headers = new Headers();
         this.headers.append("Content-Type", "application/json");
         this.headers.append("Access-Control-Allow-Origin", "*");
-        this.loggedIn = !!localStorage.getItem('Authorization');
+        this.loggedIn = !!localStorage.getItem('Headers');
      }
 
     login(username: string, password: string){
@@ -44,10 +44,13 @@ export class LoginService {
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('Headers');
+        localStorage.removeItem('username');
         localStorage.removeItem('Authorization');
+        localStorage.removeItem('Headers');
+        localStorage.clear();
         this.loggedIn = false;
         this.router.navigate(['/']);
+        window.location.reload();
     }
 
     isLoggedIn(): boolean {
