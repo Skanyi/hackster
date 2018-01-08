@@ -56,7 +56,7 @@ a:focus{
 
 /* Home Style */
 #tf-home{
-	background: url(app/images/mountain.jpg);
+	background: url(../images/mountain.jpg);
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;

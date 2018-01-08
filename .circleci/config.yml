@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/workspace
     docker:
-      - image: node:8.0
+      - image: kanyi/circleci-gcloud-dev
       - image: postgres:9.6-alpine
         environment:
           POSTGRES_USER: ubuntu
