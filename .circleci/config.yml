@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/workspace
     docker:
-      - image: kanyi/circleci-gcloud-dev
+      - image: gcr.io/andela-docker/ci-builder-base:0.0.1-node6_grpc1-6-6
       - image: postgres:9.6-alpine
         environment:
           POSTGRES_USER: ubuntu
@@ -31,7 +31,7 @@ jobs:
   deploy:
     working_directory: ~/workspace
     docker:
-      - image: kanyi/circleci-gcloud-dev
+      - image: gcr.io/andela-docker/ci-builder-base:0.0.1-node6_grpc1-6-6
         environment:
           DATABASE_URL: postgres://ubuntu@localhost:5432/circle_test
           TESTING: testing
