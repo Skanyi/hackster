@@ -4,6 +4,7 @@
 set -e
 
 export IMG_TAG=$(echo $CIRCLE_SHA1 | cut -c -7)
+
 # install kubectl
 #  set key and authenticate gcloud
 # configure gcloud
@@ -42,7 +43,7 @@ echo "Docker source , ${DOCKER_SOURCE}"
 
 # Pull docker repo
 echo " Pulling docker image source from git "
-/usr/bin/git clone --depth=1 git@github.com:andela-skanyi/bucketlist_api.git ${DOCKER_SOURCE}
+/usr/bin/git clone --depth=1 git@github.com:andela-skanyi/hackster.git ${DOCKER_SOURCE}
 echo " Successfully pulled "
 
 echo " Building image"
