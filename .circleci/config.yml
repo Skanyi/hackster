@@ -50,7 +50,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Deploy Hackster application
-          command: ./shared/deploy.sh
+          command: ./deploy.sh
 
 workflows:
   version: 2
