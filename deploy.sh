@@ -5,7 +5,6 @@ set -e
 
 export IMG_TAG=$(echo $CIRCLE_SHA1 | cut -c -7)
 
-[ -z "$DOCKER_PROJECT_NAME" ] && echo "Docker github repository name must be set in env as DOCKER_PROJECT_NAME ";
 # install kubectl
 #  set key and authenticate gcloud
 # configure gcloud
