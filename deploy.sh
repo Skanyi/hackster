@@ -44,7 +44,7 @@ echo "Docker source , ${DOCKER_SOURCE}"
 
 # Pull docker repo
 echo " Pulling docker image source from git "
-/usr/bin/git clone --depth=1 git@github.com:andela-skanyi/${DOCKER_PROJECT_NAME}.git ${DOCKER_SOURCE}
+/usr/bin/git clone --depth=1 git@github.com:andela-skanyi/hackster.git ${DOCKER_SOURCE}
 echo " Successfully pulled "
 
 echo " Building image"
