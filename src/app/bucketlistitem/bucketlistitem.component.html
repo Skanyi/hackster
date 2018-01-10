@@ -1,0 +1,145 @@
+<!--a modal that allow user logged in to create a new bucketlist-->
+
+            <!-- Modal -->
+            <div class="modal fade" id="createNew" role="dialog">
+                 <div class="modal-dialog">
+                     <!-- Modal content-->
+                     <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="bucketlist">New Bucketlist Item</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!--have the title of the bucketlist item -->
+                            <form id="create-new-bucketlist item" method="post" role="form" style="display: block;">
+                                <div class="form-group">
+                                    <input type="text" [(ngModel)]="model.title" id="title" class="form-control" required minlength="4" 
+                                    maxlength="30" placeholder="Title" name="title" >
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-4 pull-left">
+                                        <input type="submit" (click)="createBucketlistitem()" class="form-control btn btn-success" data-dismiss="modal"
+                                            value="Create New">
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                     </div>
+                 </div>
+            </div>
+            <!-- End of modal -->
+
+<!--Now a container that will display the bucketlist items of a bucketlist -->
+
+<div class="panel-body" style="text-align:center;">
+     <h2>What is your dream</h2>
+     <div class="panel-content">
+        <label> <h3> Make a list </h3>
+            <a class="btn set-btn btn-link" data-toggle="modal" data-target="#createNew"> 
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+        </label>
+     </div>
+</div>
+
+<div class="container">
+            <div class="col-sm-12" *ngFor="let item of items; let i = index">
+                <div class="bs-calltoaction bs-calltoaction-default">
+                    <div class="row">
+                        <div class="col-md-9 cta-contents">
+                            <h1 class="cta-title">{{ item.title }}</h1>
+                            <div class="cta-desc">
+                                <p>Date Created: {{ item.date_created | date:'medium' }}</p>
+                                 <p>Date Modified: {{ item.date_modified | date:'medium' }}</p>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-3 cta-button">
+                                <p>Status: {{ item.done | status }}</p>
+                        </div>
+
+                        <button type="button" (click)='getModalValues(item.item_id, item.bucketlist_d, item.title, item.done)' 
+                            class="btn btn-link pull-right" data-toggle="modal" [attr.data-target]="'#editBucketlistItem' + i">
+                                    <span class="glyphicon glyphicon-edit pull-left text-primary"></span>
+                        </button>
+
+                        <button type="button" (click)='getModalValues(item.item_id, item.bucketlist_d, item.title, item.done)' class="btn btn-link pull-right" 
+                                                            data-toggle="modal" [attr.data-target]="'#confirmDelete' + i">
+                                    <span class="glyphicon glyphicon-trash pull-right text-primary" style="color: red"></span>
+                        </button>
+
+                     </div>
+                </div>
+
+                <!--edit and delete modal goes here-->
+
+                <!-- Edit Modal -->
+                            <div [id]="'editBucketlistItem' + i" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Edit Bucketist Item</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form id="update-bucketlistitem" method="post" role="form" style="display: block;">
+                                        <div class="form-group">
+                                            <input type="text" [(ngModel)]="model.title" placeholder="Title" name="title" id="title" tabindex="1" class="form-control">
+                                            <label> 
+                                                 <input type="checkbox" [(ngModel)]="model.done" name="done" id="done" tabindex="2" class="form-control" data-toggle="toggle" data-on="Not Done" data-off="Don" data-onstyle="default" data-offstyle="success">
+                                                 Status 
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                        <div class="row">
+                                            <div class="modal-footer">
+                                                <input type="submit" (click)="updateBucketlistitem()" class="btn btn-success" data-dismiss="modal" value='Update'>
+                                                <button type="button" class="btn btn-default" data-dismiss='modal'>Cancel</button>
+                                            </div>
+                                        
+                                        </div>
+                                        </div>
+                                    </form>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                <!--End of edit modal-->
+
+                <div class="modal fade" [id]="'confirmDelete' + i"  role="dialog">
+                        <div class="modal-dialog">
+                        <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Delete Bucketlist Item </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Confirm that you want to delete this Bucketlist item?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" (click)="deleteBucketlistitem()" class="btn btn-success" data-dismiss="modal" value='Delete'>
+                                    <button type="button" class="btn btn-default" data-dismiss='modal'>Cancel</button>
+                                 </div>
+                            </div>
+                        </div>
+                </div>
+
+                <!--End delete modal-->
+
+            </div>
+        
+
+        
+ </div>
+
+ 
