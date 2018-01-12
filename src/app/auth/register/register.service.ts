@@ -11,7 +11,7 @@ import { User } from './register'
 
 @Injectable()
 export class RegisterService {
-    private registerurl = "http://127.0.0.1:5000/auth/register";
+    private registerurl = "http://bucketlist-api-svc:5000/auth/register";
 
     constructor(private http:Http) {}
 
