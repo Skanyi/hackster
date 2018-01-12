@@ -9,7 +9,7 @@ import 'rxjs/Rx';
 export class LoginService {
     private headers: Headers;
     private loggedIn: boolean = false;
-    private loginurl = "http://127.0.0.1:5000/auth/login";
+    private loginurl = "bucketlist-api-svc:5000/auth/login";
     
     constructor(private http: Http, private router: Router) {
         this.headers = new Headers();
