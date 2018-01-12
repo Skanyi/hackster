@@ -14,7 +14,8 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class BucketlistService {
-    private _bucketlisturl = 'http://bucketlist-api-svc:5000/bucketlists';
+    private _bucketlisturl = 'bucketlist-api-svc:5000/bucketlists';
+  
     private headers: Headers;
 
     constructor(
